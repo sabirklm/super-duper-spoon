@@ -1,8 +1,23 @@
-import 'package:educational_app/views/pages/home_page.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'controllers/exploration_controller.dart';
+import 'views/pages/bottom_navigations.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider<ExplorationFactProvider>(
+          create: (context) => ExplorationFactProvider(),
+        ),
+        ChangeNotifierProvider<HomeProvider>(
+          create: (context) => HomeProvider(),
+        ),
+        // Provider(create: (context) => SomeOtherClass()),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -14,7 +29,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const HomePage(),
+      home: const BottomNavigations(),
     );
   }
 }
